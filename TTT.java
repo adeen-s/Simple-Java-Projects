@@ -68,7 +68,7 @@ public class TTT {
   }
 
   public boolean isValid(int i, int j) {
-    return (i<3 && j<3 && arr[i][j]==0);
+    return (i<3 && j<3 && i>=0 && j>=0 arr[i][j]==0);
   }
 
   public void check() {
