@@ -1,4 +1,4 @@
-import java.util.Scanner;
+import java.util.*;
 public class TTT {
   int arr[][] = new int[3][3];
   // 0 for empty.
@@ -9,11 +9,19 @@ public class TTT {
     while(true) {
       game.check();
       game.display();
-      game.input1();
+      game.input(1);
       game.check();
       game.display();
-      game.input2();
+      game.input(2);
     }
+  }
+
+  public boolean gameNotOver() {
+    for(int i=0;i<3;i++)
+      for(int j=0;j<3;j++)
+        if(arr[i][j]==0)
+          return true;
+    return false;
   }
 
   public TTT() {
@@ -39,36 +47,27 @@ public class TTT {
     }
   }
 
-  public void input1() {
+  public void input(int plyr_id) {
     Scanner sc = new Scanner (System.in);
-    System.out.println("\n Enter the coordinates for X");
-    int i = sc.nextInt();
-    int j = sc.nextInt();
-    if(isValid(i,j))
-      arr[i][j]=1;
-    else {
-      System.out.println("Invalid input, try again");
-      input1();
+    int i=-1,j=-1;
+    System.out.println("\n Enter the coordinates Player "+plyr_id);
+    try {
+      i = sc.nextInt();
+      j = sc.nextInt();
     }
-  }
-
-  public void input2() {
-    Scanner sc = new Scanner (System.in);
-    System.out.println("\n Enter the coordinates for O");
-    int i = sc.nextInt();
-    int j = sc.nextInt();
+    catch(InputMismatchException ex) {
+      System.out.println("Invalid input, only integers allowed. Try Again");
+    }
     if(isValid(i,j))
-      arr[i][j]=2;
+      arr[i][j]=plyr_id;
     else {
       System.out.println("Invalid input, try again");
-      input2();
+      input(plyr_id);
     }
   }
 
   public boolean isValid(int i, int j) {
-    if(i<3 && j<3 && arr[i][j]==0)
-      return true;
-    return false;
+    return (i<3 && j<3 && i>=0 && arr[i][j]==0);
   }
 
   public void check() {
@@ -117,6 +116,10 @@ public class TTT {
         System.out.println("O Wins");
         System.exit(0);
       }
+    }
+    if(!gameNotOver()){
+      System.out.println("Its a tie");
+      System.exit(0);
     }
   }
 }
