@@ -54,20 +54,21 @@ public class TTT {
     try {
       i = sc.nextInt();
       j = sc.nextInt();
+      if(isValid(i,j))
+        arr[i][j]=plyr_id;
+      else {
+        System.out.println("Invalid input, try again");
+        input(plyr_id);
+      }
     }
     catch(InputMismatchException ex) {
       System.out.println("Invalid input, only integers allowed. Try Again");
-    }
-    if(isValid(i,j))
-      arr[i][j]=plyr_id;
-    else {
-      System.out.println("Invalid input, try again");
       input(plyr_id);
     }
   }
 
   public boolean isValid(int i, int j) {
-    return (i<3 && j<3 && i>=0 && j>=0 && arr[i][j]==0);
+    return (i<3 && j<3 && arr[i][j]==0);
   }
 
   public void check() {
